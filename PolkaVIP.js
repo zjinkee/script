@@ -21,6 +21,7 @@ if (/(users\/(pub|login))/.test(url)) {
         "payVipType": 1,
         "actVipType": 1,
         "signType": 1,
+        "signPayType": 1,
         "expireDate": expire,
         "payExpireDate": expire,
         "bigExpireDate": expire,
@@ -32,9 +33,9 @@ if (/(users\/(pub|login))/.test(url)) {
 
     const userInfoMod = {
         "isVip": 1,
+        "authType": 7,
         "vipType": 1,
-        "payVipType": 1,
-        "AuthType": 1
+        "payVipType": 1
     };
 
     if (obj.data) {
