@@ -1,39 +1,52 @@
 let url = $request.url;
 let body = $response.body;
 
-if (/v6\/main\/init/.test(url)) {
+if (/(users\/(pub|login))/.test(url)) {
     let obj = JSON.parse(body);
+    const expire = 2524579200000;
+    
+    const payInfoMod = {
+        "isVip": 1,
+        "isVipBoolean": true,
+        "isPayVipBoolean": true,
+        "isBigVipBoolean": true,
+        "isBigPayVipBoolean": true,
+        "isActVipBoolean": true,
+        "isSignedBoolean": true,
+        "isCtVipBoolean": true,
+        "isCtPayVipBoolean": true,
+        "isFreeCtVip": true,
+        "isSigned": 1,
+        "vipType": 1,
+        "payVipType": 1,
+        "actVipType": 1,
+        "signType": 1,
+        "expireDate": expire,
+        "payExpireDate": expire,
+        "bigExpireDate": expire,
+        "actExpireDate": expire,
+        "ctExpireDate": expire,
+        "ctPayExpireDate": expire,
+        "bigPayExpireDate": expire
+    };
+
+    const userInfoMod = {
+        "isVip": 1,
+        "vipType": 1,
+        "payVipType": 1,
+        "AuthType": 1
+    };
 
     if (obj.data) {
-        obj.data = obj.data.filter(item => item.entityId !== 24455);
-
-        obj.data.forEach(item => {
-            if (item.extraDataArr) {
-                for (let k in item.extraDataArr) {
-                    if (/Ad|Splash|GROWTH|redPacket/i.test(k)) {
-                        item.extraDataArr[k] = "0";
-                    }
-                    if (/HttpDns|HttpDnsServer/i.test(k)) {
-                        item.extraDataArr[k] = "";
-                    }
-                }
-            }
-
-            let ID = [];
-            if (item.entityId === 6390) ID = [420, 2759, 415, 417, 1229];
-            if (item.entityId === 20305) ID = [790, 813, 2258, 2894, 2191];
-            if (item.entityId === 20131) ID = [2953, 1175, 2892, 2893, 2018];
-
-            if (ID.length > 0 && item.entities) {
-                let arr = [];
-                ID.forEach(id => {
-                    item.entities.forEach(e => {
-                        if (e.entityId === id) arr.push(e);
-                    });
-                });
-                item.entities = arr;
-            }
-        });
+        if (obj.data.payInfo) {
+            Object.assign(obj.data.payInfo, payInfoMod);
+        }
+        if (obj.data.userInfo) {
+            Object.assign(obj.data.userInfo, userInfoMod);
+        }
+        if (obj.data.userFreeInfo) {
+            obj.data.userFreeInfo.csIsFree = 1;
+        }
     }
 
     body = JSON.stringify(obj);
