@@ -33,7 +33,7 @@ if(/(users\/(pub|login))/.test(url)){
 
     const userInfoMod={
         "isVip":1,
-        "authType":7,
+        "authType":1,
         "vipType":1,
         "payVipType":1
     };
