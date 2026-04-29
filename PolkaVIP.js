@@ -3,7 +3,7 @@ let body = $response.body;
 
 if (/(users\/(pub|login))/.test(url)) {
     let obj = JSON.parse(body);
-    const expire = 2524579200000;
+    const time = 2524579200000;
     
     const payInfoMod = {
         "isVip": 1,
@@ -22,13 +22,13 @@ if (/(users\/(pub|login))/.test(url)) {
         "actVipType": 1,
         "signType": 1,
         "signPayType": 1,
-        "expireDate": expire,
-        "payExpireDate": expire,
-        "bigExpireDate": expire,
-        "actExpireDate": expire,
-        "ctExpireDate": expire,
-        "ctPayExpireDate": expire,
-        "bigPayExpireDate": expire
+        "expireDate": time,
+        "payExpireDate": time
+        "bigExpireDate": time,
+        "actExpireDate": time,
+        "ctExpireDate": time,
+        "ctPayExpireDate": time,
+        "bigPayExpireDate": time
     };
 
     const userInfoMod = {
